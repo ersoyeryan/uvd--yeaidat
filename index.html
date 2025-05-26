@@ -226,8 +226,8 @@
             </div>
         </div>
 
-        <!-- CSV Upload -->
-        <div class="neumorphic-card">
+        <!-- CSV Upload - Admin Only -->
+        <div id="csvUploadSection" class="neumorphic-card admin-panel">
             <div class="file-upload">
                 <h3 style="margin-bottom: 1rem; color: #8B5FBF;">CSV Dosya Yükleme</h3>
                 <input type="file" id="csvFile" accept=".csv" style="margin: 0.5rem 0;">
@@ -287,6 +287,7 @@
                 if (adminKey === "admin123") {
                     isAdmin = true;
                     document.getElementById('adminPanel').style.display = 'block';
+                    document.getElementById('csvUploadSection').style.display = 'block';
                     alert("Admin modu açıldı!");
                 } else if (adminKey !== null) {
                     alert("Geçersiz admin anahtarı!");
@@ -294,6 +295,7 @@
             } else {
                 isAdmin = false;
                 document.getElementById('adminPanel').style.display = 'none';
+                document.getElementById('csvUploadSection').style.display = 'none';
                 alert("Admin modu kapatıldı!");
             }
         }

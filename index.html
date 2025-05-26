@@ -1,0 +1,489 @@
+{\rtf1\ansi\ansicpg1254\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="tr">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>\'dcye \'d6deme Sorgulama Sistemi</title>\
+    <style>\
+        * \{\
+            margin: 0;\
+            padding: 0;\
+            box-sizing: border-box;\
+        \}\
+\
+        body \{\
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\
+            background: linear-gradient(135deg, #F0EFFC 0%, #E8E6F7 100%);\
+            min-height: 100vh;\
+            color: #202040;\
+        \}\
+\
+        .container \{\
+            max-width: 800px;\
+            margin: 0 auto;\
+            padding: 2rem;\
+        \}\
+\
+        .neumorphic-card \{\
+            background: #F0EFFC;\
+            border-radius: 1rem;\
+            box-shadow: 8px 8px 16px #D0CDD9, -8px -8px 16px #FFFFFF;\
+            border: 1px solid #D0CDD9;\
+            margin-bottom: 2rem;\
+        \}\
+\
+        .neumorphic-card-inset \{\
+            background: #E8E6F7;\
+            border-radius: 1rem;\
+            box-shadow: inset 4px 4px 8px #D0CDD9, inset -4px -4px 8px #FFFFFF;\
+            border: 1px solid #D0CDD9;\
+        \}\
+\
+        .neumorphic-button \{\
+            background: #8B5FBF;\
+            color: white;\
+            border: none;\
+            border-radius: 1rem;\
+            padding: 0.75rem 1.5rem;\
+            font-weight: 600;\
+            cursor: pointer;\
+            box-shadow: 6px 6px 12px #D0CDD9, -6px -6px 12px #FFFFFF;\
+            transition: all 0.2s ease;\
+        \}\
+\
+        .neumorphic-button:hover \{\
+            background: #6B4593;\
+            box-shadow: 4px 4px 8px #D0CDD9, -4px -4px 8px #FFFFFF;\
+            transform: translateY(1px);\
+        \}\
+\
+        .neumorphic-input \{\
+            background: #F0EFFC;\
+            border: 1px solid #D0CDD9;\
+            border-radius: 1rem;\
+            padding: 0.75rem 1rem;\
+            width: 100%;\
+            box-shadow: inset 3px 3px 6px #D0CDD9, inset -3px -3px 6px #FFFFFF;\
+            transition: all 0.2s ease;\
+        \}\
+\
+        .neumorphic-input:focus \{\
+            outline: none;\
+            box-shadow: inset 2px 2px 4px #8B5FBF, inset -2px -2px 4px #FFFFFF;\
+        \}\
+\
+        .header \{\
+            text-align: center;\
+            padding: 2rem;\
+        \}\
+\
+        .form-group \{\
+            margin-bottom: 1.5rem;\
+        \}\
+\
+        .form-group label \{\
+            display: block;\
+            margin-bottom: 0.5rem;\
+            font-weight: 600;\
+            color: #202040;\
+        \}\
+\
+        .search-form \{\
+            padding: 2rem;\
+        \}\
+\
+        .results \{\
+            padding: 2rem;\
+            display: none;\
+        \}\
+\
+        .error \{\
+            color: #dc2626;\
+            padding: 1rem;\
+            background: #fef2f2;\
+            border-radius: 0.5rem;\
+            margin: 1rem 0;\
+        \}\
+\
+        .grid \{\
+            display: grid;\
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\
+            gap: 1rem;\
+            margin: 1rem 0;\
+        \}\
+\
+        .stat-card \{\
+            padding: 1.5rem;\
+            text-align: center;\
+        \}\
+\
+        .payment-table \{\
+            width: 100%;\
+            border-collapse: collapse;\
+            margin: 1rem 0;\
+        \}\
+\
+        .payment-table th,\
+        .payment-table td \{\
+            padding: 0.75rem;\
+            text-align: left;\
+            border-bottom: 1px solid #D0CDD9;\
+        \}\
+\
+        .payment-table th \{\
+            background: #E8E6F7;\
+            font-weight: 600;\
+        \}\
+\
+        .file-upload \{\
+            margin: 1rem 0;\
+            padding: 1rem;\
+            background: #E8E6F7;\
+            border-radius: 1rem;\
+            text-align: center;\
+        \}\
+\
+        .admin-panel \{\
+            display: none;\
+        \}\
+\
+        .admin-toggle \{\
+            position: fixed;\
+            top: 20px;\
+            right: 20px;\
+            background: #8B5FBF;\
+            color: white;\
+            border: none;\
+            border-radius: 50%;\
+            width: 50px;\
+            height: 50px;\
+            cursor: pointer;\
+            box-shadow: 4px 4px 8px #D0CDD9;\
+            font-size: 1.2rem;\
+        \}\
+\
+        .admin-toggle:hover \{\
+            background: #6B4593;\
+        \}\
+\
+        .member-form \{\
+            display: grid;\
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\
+            gap: 1rem;\
+            margin: 1rem 0;\
+        \}\
+    </style>\
+</head>\
+<body>\
+    <!-- Admin Toggle Button -->\
+    <button class="admin-toggle" onclick="toggleAdmin()" title="Admin">\uc0\u9881 \u65039 </button>\
+\
+    <div class="container">\
+        <!-- Header -->\
+        <div class="neumorphic-card">\
+            <div class="header">\
+                <h1 style="font-size: 2rem; margin-bottom: 0.5rem; color: #8B5FBF;">\
+                    \'dcye \'d6deme Sorgulama Sistemi\
+                </h1>\
+                <p style="color: #6B6B85; font-size: 1.1rem;">\
+                    Ad, soyad ve TC kimlik numaran\uc0\u305 z ile \'f6deme bilgilerinizi sorgulayabilirsiniz\
+                </p>\
+            </div>\
+        </div>\
+\
+        <!-- Admin Panel -->\
+        <div id="adminPanel" class="admin-panel">\
+            <!-- New Member Registration -->\
+            <div class="neumorphic-card">\
+                <div style="padding: 2rem;">\
+                    <h3 style="margin-bottom: 1rem; color: #8B5FBF;">\uc0\u55357 \u56420  Yeni \'dcye Kayd\u305 </h3>\
+                    <div class="neumorphic-card-inset" style="padding: 1.5rem;">\
+                        <div class="member-form">\
+                            <div>\
+                                <label>Ad Soyad *</label>\
+                                <input type="text" id="newMemberName" class="neumorphic-input" placeholder="\'d6rnek: Ahmet Y\uc0\u305 lmaz">\
+                            </div>\
+                            <div>\
+                                <label>TC Kimlik No *</label>\
+                                <input type="text" id="newMemberTC" class="neumorphic-input" placeholder="11 haneli TC" maxlength="11">\
+                            </div>\
+                            <div>\
+                                <label>E-posta</label>\
+                                <input type="email" id="newMemberEmail" class="neumorphic-input" placeholder="ornek@email.com">\
+                            </div>\
+                            <div>\
+                                <label>Telefon</label>\
+                                <input type="text" id="newMemberPhone" class="neumorphic-input" placeholder="0555 555 55 55">\
+                            </div>\
+                        </div>\
+                        <button onclick="addNewMember()" class="neumorphic-button" style="margin-top: 1rem;">\
+                            \uc0\u10133  \'dcye Kayd\u305 n\u305  Tamamla\
+                        </button>\
+                    </div>\
+                </div>\
+            </div>\
+        </div>\
+\
+        <!-- CSV Upload -->\
+        <div class="neumorphic-card">\
+            <div class="file-upload">\
+                <h3 style="margin-bottom: 1rem; color: #8B5FBF;">CSV Dosya Y\'fckleme</h3>\
+                <input type="file" id="csvFile" accept=".csv" style="margin: 0.5rem 0;">\
+                <br>\
+                <button onclick="loadCSV()" class="neumorphic-button">Dosya Y\'fckle</button>\
+                <p style="font-size: 0.9rem; color: #6B6B85; margin-top: 0.5rem;">\
+                    Format: Ad Soyad, TC, Tarih, Tutar, T\'fcr, Durum, A\'e7\uc0\u305 klama\
+                </p>\
+            </div>\
+        </div>\
+\
+        <!-- Search Form -->\
+        <div class="neumorphic-card">\
+            <form class="search-form" onsubmit="searchMember(event)">\
+                <div class="neumorphic-card-inset" style="padding: 2rem;">\
+                    <h2 style="margin-bottom: 1.5rem; color: #8B5FBF;">\'dcye Sorgulama</h2>\
+                    \
+                    <div class="form-group">\
+                        <label for="fullName">Ad Soyad</label>\
+                        <input type="text" id="fullName" class="neumorphic-input" \
+                               placeholder="\'d6rnek: Ahmet Y\uc0\u305 lmaz" required>\
+                    </div>\
+                    \
+                    <div class="form-group">\
+                        <label for="tcNumber">TC Kimlik Numaras\uc0\u305 </label>\
+                        <input type="text" id="tcNumber" class="neumorphic-input" \
+                               placeholder="11 haneli TC kimlik numaras\uc0\u305 " \
+                               pattern="[0-9]\{11\}" maxlength="11" required>\
+                    </div>\
+                    \
+                    <button type="submit" class="neumorphic-button" style="width: 100%;">\
+                        \uc0\u55357 \u56589  Sorgula\
+                    </button>\
+                </div>\
+            </form>\
+        </div>\
+\
+        <!-- Results -->\
+        <div id="results" class="neumorphic-card results">\
+            <h3 style="margin-bottom: 1rem; color: #8B5FBF;">Sonu\'e7lar</h3>\
+            <div id="memberInfo"></div>\
+            <div id="paymentSummary" class="grid"></div>\
+            <div id="paymentDetails"></div>\
+        </div>\
+\
+        <!-- Error -->\
+        <div id="error" class="error" style="display: none;"></div>\
+    </div>\
+\
+    <script>\
+        let csvData = [];\
+        let isAdmin = false;\
+\
+        function toggleAdmin() \{\
+            if (!isAdmin) \{\
+                const adminKey = prompt("Admin anahtar\uc0\u305 n\u305  giriniz:");\
+                if (adminKey === "admin123") \{\
+                    isAdmin = true;\
+                    document.getElementById('adminPanel').style.display = 'block';\
+                    alert("Admin modu a\'e7\uc0\u305 ld\u305 !");\
+                \} else if (adminKey !== null) \{\
+                    alert("Ge\'e7ersiz admin anahtar\uc0\u305 !");\
+                \}\
+            \} else \{\
+                isAdmin = false;\
+                document.getElementById('adminPanel').style.display = 'none';\
+                alert("Admin modu kapat\uc0\u305 ld\u305 !");\
+            \}\
+        \}\
+\
+        function addNewMember() \{\
+            const name = document.getElementById('newMemberName').value.trim();\
+            const tc = document.getElementById('newMemberTC').value.trim();\
+            const email = document.getElementById('newMemberEmail').value.trim();\
+            const phone = document.getElementById('newMemberPhone').value.trim();\
+\
+            if (!name || !tc) \{\
+                alert('Ad Soyad ve TC Kimlik No zorunludur!');\
+                return;\
+            \}\
+\
+            const exists = csvData.find(row => row[1] === tc);\
+            if (exists) \{\
+                alert('Bu TC kimlik numaras\uc0\u305 na sahip \'fcye zaten mevcut!');\
+                return;\
+            \}\
+\
+            const newRow = [\
+                name,\
+                tc,\
+                new Date().toLocaleDateString('tr-TR'),\
+                "\uc0\u8378 0.00",\
+                "\'dcyelik Kayd\uc0\u305 ",\
+                "Aktif",\
+                `Tel: $\{phone\} | Email: $\{email\}`\
+            ];\
+\
+            csvData.push(newRow);\
+\
+            document.getElementById('newMemberName').value = '';\
+            document.getElementById('newMemberTC').value = '';\
+            document.getElementById('newMemberEmail').value = '';\
+            document.getElementById('newMemberPhone').value = '';\
+\
+            alert('Yeni \'fcye ba\uc0\u351 ar\u305 yla eklendi!');\
+        \}\
+\
+        function loadCSV() \{\
+            const fileInput = document.getElementById('csvFile');\
+            const file = fileInput.files[0];\
+            \
+            if (!file) \{\
+                alert('L\'fctfen bir CSV dosyas\uc0\u305  se\'e7in');\
+                return;\
+            \}\
+            \
+            const reader = new FileReader();\
+            reader.onload = function(e) \{\
+                const text = e.target.result;\
+                parseCSV(text);\
+            \};\
+            reader.readAsText(file, 'UTF-8');\
+        \}\
+\
+        function parseCSV(text) \{\
+            const lines = text.split('\\n');\
+            csvData = [];\
+            \
+            for (let i = 1; i < lines.length; i++) \{\
+                const line = lines[i].trim();\
+                if (line) \{\
+                    const values = line.split(',').map(v => v.trim().replace(/"/g, ''));\
+                    if (values.length >= 6) \{\
+                        csvData.push(values);\
+                    \}\
+                \}\
+            \}\
+            \
+            alert(`$\{csvData.length\} kay\uc0\u305 t y\'fcklendi!`);\
+        \}\
+\
+        function searchMember(event) \{\
+            event.preventDefault();\
+            \
+            const fullName = document.getElementById('fullName').value.trim();\
+            const tcNumber = document.getElementById('tcNumber').value.trim();\
+            \
+            document.getElementById('results').style.display = 'none';\
+            document.getElementById('error').style.display = 'none';\
+            \
+            if (csvData.length === 0) \{\
+                showError('\'d6nce CSV dosyas\uc0\u305  y\'fcklemeniz gerekmektedir.');\
+                return;\
+            \}\
+            \
+            const memberPayments = csvData.filter(row => \
+                row[0].toLowerCase() === fullName.toLowerCase() && \
+                row[1] === tcNumber\
+            );\
+            \
+            if (memberPayments.length === 0) \{\
+                showError('Girilen bilgilere ait herhangi bir kay\uc0\u305 t bulunamad\u305 .');\
+                return;\
+            \}\
+            \
+            displayResults(fullName, tcNumber, memberPayments);\
+        \}\
+\
+        function showError(message) \{\
+            const errorDiv = document.getElementById('error');\
+            errorDiv.textContent = message;\
+            errorDiv.style.display = 'block';\
+        \}\
+\
+        function displayResults(fullName, tcNumber, payments) \{\
+            let totalPaid = 0;\
+            let totalPending = 0;\
+            \
+            payments.forEach(payment => \{\
+                const amount = parseFloat(payment[3].replace(/[^\\d.,]/g, '').replace(',', '.')) || 0;\
+                if (payment[5].toLowerCase().includes('\'f6dendi')) \{\
+                    totalPaid += amount;\
+                \} else \{\
+                    totalPending += amount;\
+                \}\
+            \});\
+            \
+            document.getElementById('memberInfo').innerHTML = `\
+                <div class="neumorphic-card-inset" style="padding: 1.5rem; margin-bottom: 1rem;">\
+                    <h4 style="color: #8B5FBF;">\uc0\u55357 \u56420  $\{fullName\}</h4>\
+                    <p style="color: #6B6B85;">TC: $\{tcNumber\}</p>\
+                </div>\
+            `;\
+            \
+            document.getElementById('paymentSummary').innerHTML = `\
+                <div class="neumorphic-card-inset stat-card">\
+                    <h4 style="color: #059669;">\uc0\u9989  \'d6denen</h4>\
+                    <p style="font-size: 1.5rem; font-weight: bold;">\uc0\u8378 $\{totalPaid.toLocaleString('tr-TR', \{ minimumFractionDigits: 2 \})\}</p>\
+                </div>\
+                <div class="neumorphic-card-inset stat-card">\
+                    <h4 style="color: #dc2626;">\uc0\u9203  Bekleyen</h4>\
+                    <p style="font-size: 1.5rem; font-weight: bold;">\uc0\u8378 $\{totalPending.toLocaleString('tr-TR', \{ minimumFractionDigits: 2 \})\}</p>\
+                </div>\
+                <div class="neumorphic-card-inset stat-card">\
+                    <h4 style="color: #8B5FBF;">\uc0\u55357 \u56516  Toplam</h4>\
+                    <p style="font-size: 1.5rem; font-weight: bold;">$\{payments.length\}</p>\
+                </div>\
+            `;\
+            \
+            let tableHTML = `\
+                <div class="neumorphic-card-inset" style="padding: 1.5rem; margin-top: 1rem;">\
+                    <h4 style="margin-bottom: 1rem; color: #8B5FBF;">\'d6deme Detaylar\uc0\u305 </h4>\
+                    <table class="payment-table">\
+                        <thead>\
+                            <tr>\
+                                <th>Tarih</th>\
+                                <th>Tutar</th>\
+                                <th>T\'fcr</th>\
+                                <th>Durum</th>\
+                                <th>A\'e7\uc0\u305 klama</th>\
+                            </tr>\
+                        </thead>\
+                        <tbody>\
+            `;\
+            \
+            payments.forEach(payment => \{\
+                tableHTML += `\
+                    <tr>\
+                        <td>$\{payment[2]\}</td>\
+                        <td>$\{payment[3]\}</td>\
+                        <td>$\{payment[4]\}</td>\
+                        <td>$\{payment[5]\}</td>\
+                        <td>$\{payment[6] || '-'\}</td>\
+                    </tr>\
+                `;\
+            \});\
+            \
+            tableHTML += `\
+                        </tbody>\
+                    </table>\
+                </div>\
+            `;\
+            \
+            document.getElementById('paymentDetails').innerHTML = tableHTML;\
+            document.getElementById('results').style.display = 'block';\
+        \}\
+\
+        // TC number validation\
+        document.getElementById('tcNumber').addEventListener('input', function(e) \{\
+            this.value = this.value.replace(/\\D/g, '').slice(0, 11);\
+        \});\
+    </script>\
+</body>\
+</html>}

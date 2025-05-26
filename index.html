@@ -146,7 +146,7 @@
         }
 
         .admin-panel {
-            display: none;
+            display: none !important;
         }
 
         .admin-toggle {
@@ -286,16 +286,16 @@
                 const adminKey = prompt("Admin anahtarını giriniz:");
                 if (adminKey === "admin123") {
                     isAdmin = true;
-                    document.getElementById('adminPanel').style.display = 'block';
-                    document.getElementById('csvUploadSection').style.display = 'block';
+                    document.getElementById('adminPanel').classList.remove('admin-panel');
+                    document.getElementById('csvUploadSection').classList.remove('admin-panel');
                     alert("Admin modu açıldı!");
                 } else if (adminKey !== null) {
                     alert("Geçersiz admin anahtarı!");
                 }
             } else {
                 isAdmin = false;
-                document.getElementById('adminPanel').style.display = 'none';
-                document.getElementById('csvUploadSection').style.display = 'none';
+                document.getElementById('adminPanel').classList.add('admin-panel');
+                document.getElementById('csvUploadSection').classList.add('admin-panel');
                 alert("Admin modu kapatıldı!");
             }
         }

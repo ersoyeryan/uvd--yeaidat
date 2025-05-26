@@ -393,19 +393,10 @@
         }
 
         async function saveToGitHub(csvContent) {
-            const GITHUB_TOKEN = localStorage.getItem('github_token');
+            const GITHUB_TOKEN = 'GITHUB_PERSONAL_ACCESS_TOKEN'; // Replace with your actual token
             const REPO_OWNER = 'ersoyeryan'; // Your GitHub username
             const REPO_NAME = 'uvd--yesidat'; // Your repo name
             const FILE_PATH = 'data.csv';
-            
-            if (!GITHUB_TOKEN) {
-                const token = prompt('GitHub Personal Access Token gerekli.\nGitHub Settings > Developer Settings > Personal Access Tokens\nYeni token oluşturun ve buraya yapıştırın:');
-                if (token) {
-                    localStorage.setItem('github_token', token);
-                    saveToGitHub(csvContent);
-                }
-                return;
-            }
 
             try {
                 // First, try to get the current file to get its SHA
